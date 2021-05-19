@@ -18,14 +18,15 @@ public class OrderMapper {
     {
         try (Connection connection = database.connect())
         {
-            String sql = "INSERT INTO orders (prisTotal, Kunde_kunde_Id, Carport_carport_Id, status) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO orders (total_amount, customer_id, carport_length, carport_width, status) VALUES (?,?, ?, ?, ?)";
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
             {
                 ps.setDouble(1, order.getPrisTotal());
-                ps.setInt(2, order.getKunde_kunde_Id());
-                ps.setInt(3,order.getCarport_carport_Id());
-                ps.setString(4, order.getStatus());
+                ps.setInt(2, order.getKunde_Id());
+                ps.setInt(3,order.getCarport_length());
+                ps.setInt(4,order.getCarport_width());
+                ps.setString(5, order.getStatus());
                 ps.executeUpdate();
                 /*ResultSet ids = ps.getGeneratedKeys();
                 ids.next();

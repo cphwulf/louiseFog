@@ -14,7 +14,7 @@
         You are now logged in as a Customer of our wonderful site.
         Role: ${sessionScope.role}
         <p >
-            <p><a href="fc/customermaterialpage">Materials</a>
+            <p><a href="customermaterialpage">Materials</a>
 
         <c:forEach items="${requestScope.matList}" var="item">
             <p>${item}</p>
