@@ -9,6 +9,7 @@ import business.services.UserFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +32,20 @@ MaterialFacade materialFacade;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session=request.getSession();
+        String s[] = request.getParameterValues("id");
+        if (s != null && s.length != 0) {
+            for (int i = 0; i < s.length; i++) {
+                System.out.println(s[i] + "\n" + "Thank you");
+            }
+        }
+
+
         List<String> materialList = materialFacade.getAllMaterial();
         SimpleOrder simpleOrder = new SimpleOrder(1,1,600, 780);
         List<OrderItems> orderedItems = new ArrayList<>();
         //materialliste skal lave en ny
         request.setAttribute("matList", materialList);
-
         return pageToShow;
     }
 }

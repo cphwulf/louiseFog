@@ -6,8 +6,16 @@
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/bmi</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
       <time-zone>CET</time-zone>
+    </data-source>
+    <data-source source="LOCAL" name="joncarport@localhost" uuid="df859683-0976-4944-972a-444895db783d">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/joncarport</jdbc-url>
+      <driver-properties>
+        <property name="serverTimezone" value="UTC" />
+      </driver-properties>
     </data-source>
   </component>
 </project>

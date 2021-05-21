@@ -16,7 +16,6 @@
 
     <jsp:attribute name="footer">
     </jsp:attribute>
-
     <jsp:body>
 Hello, this is the orderpage, here you can order a carport. Please enter measures in cm.
 
@@ -51,7 +50,13 @@ Hello, this is the orderpage, here you can order a carport. Please enter measure
                 </p>
             </c:if>
         </div>
+</div>
+<input type="checkbox" id="shed" name="shed" value="shed">
+<label for="shed"> Add a shed</label><br>
+<br/>
+<input class="btn btn-primary" type="submit" type="submit" value="Submit">
+</form>
+</div>
 </jsp:body>
-
 
 </t:genericpage>
