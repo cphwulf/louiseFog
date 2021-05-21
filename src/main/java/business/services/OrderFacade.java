@@ -24,11 +24,8 @@ public class OrderFacade implements OrderMapperI {
     @Override
     public Order getOrderById(int id) {
         Order order = null;
-        try {
-            order = orderMapper.
 
-        }
-
+        return order;
     }
 
     @Override

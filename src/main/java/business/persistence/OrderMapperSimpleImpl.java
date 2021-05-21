@@ -18,6 +18,7 @@ public class OrderMapperSimpleImpl implements OrderMapperI{
     public Order getOrderById(int id) {
         Order order = null;
 
+        return order;
     }
 
     @Override
