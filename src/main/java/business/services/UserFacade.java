@@ -26,4 +26,9 @@ public class UserFacade
         return user;
     }
 
+    public String getUsernameById(int id) {
+        User user = userMapper.getNameFromId(id);
+        return user.getEmail();
+    }
+
 }

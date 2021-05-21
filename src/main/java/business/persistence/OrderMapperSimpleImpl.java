@@ -36,4 +36,9 @@ public class OrderMapperSimpleImpl implements OrderMapperI{
     public Order createOrder() throws UserException {
         return null;
     }
+
+    @Override
+    public Order createOrder(int kundeId, int length, int width, boolean shed) {
+        return null;
+    }
 }

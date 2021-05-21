@@ -3,6 +3,7 @@ package web.commands;
 import business.entities.Order;
 import business.exceptions.UserException;
 import business.services.OrderFacade;
+import business.services.UserFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,10 +11,12 @@ import java.util.List;
 
 public class ListOrderCommandEmp extends CommandProtectedPage {
     OrderFacade orderFacade;
+    UserFacade userFacade;
 
     public ListOrderCommandEmp(String listorderpage, String role) {
             super(listorderpage, role);
             orderFacade = new OrderFacade(database);
+            userFacade = new UserFacade(database);
         }
 
         @Override
@@ -24,13 +27,13 @@ public class ListOrderCommandEmp extends CommandProtectedPage {
             //int customerId = request.getParameter("kundeId");
             try {
                 List<Order> orderList = orderFacade.listAllOrders();
+                for (Order order: orderList ) {
+                    order.setKundeMail(userFacade.getUsernameById(order.getKunde_Id()));
+                }
                 request.setAttribute("orderlist", orderList);
             }catch (UserException e){
                 e.printStackTrace();
             }
-
-
-
             return super.execute(request, response);
         }
     }

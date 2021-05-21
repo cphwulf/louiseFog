@@ -34,12 +34,13 @@ MaterialFacade materialFacade;
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session=request.getSession();
         String s[] = request.getParameterValues("id");
+        int ordreId=0;
         if (s != null && s.length != 0) {
             for (int i = 0; i < s.length; i++) {
                 System.out.println(s[i] + "\n" + "Thank you");
+                ordreId=Integer.parseInt(s[i]);
             }
         }
-
 
         List<String> materialList = materialFacade.getAllMaterial();
         SimpleOrder simpleOrder = new SimpleOrder(1,1,600, 780);

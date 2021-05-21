@@ -27,8 +27,7 @@ public class OrderMapper {
                 ps.setInt(2, order.getKunde_Id());
                 ps.setInt(3, order.getLength());
                 ps.setInt(4,order.getWidth());
-                ps.setBoolean(5, order.isShed());
-                ps.setString(6, order.getStatus());
+                ps.setString(5, order.getStatus());
                 ps.executeUpdate();
                 ResultSet ids = ps.getGeneratedKeys();
                 ids.next();
@@ -88,22 +87,26 @@ public class OrderMapper {
         List<Order> orders = new ArrayList<>();
         try (Connection connection = database.connect())
         {
-            String sql = "SELECT * FROM ordre";
+            String sql = "SELECT * FROM orders";
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
             {
 
                 ResultSet resultSet = ps.executeQuery();
                 while (resultSet.next()){
-                    int orderId = resultSet.getInt("ordre_Id");
-                    int kundeId = resultSet.getInt("Kunde_kunde_Id");
-                    double pris = resultSet.getDouble("prisTotal");
-                    int length = resultSet.getInt("length");
-                    int width = resultSet.getInt("width");
-                    boolean shed = resultSet.getBoolean("shed");
+                    int orderId = resultSet.getInt("id");
+                    int kundeId = resultSet.getInt("customer_id");
+                    double pris = resultSet.getDouble("total_amount");
+                    int length = resultSet.getInt("shed_length");
+                    int width = resultSet.getInt("shed_width");
+                    //boolean shed = resultSet.getBoolean("shed");
+                    boolean shed = false;
                     String status = resultSet.getString("status");
 
-                    Order order = new Order(orderId, kundeId,length, width, shed, pris, status);
+                    Order order = new Order(kundeId,length, width, shed);
+                    order.setOrdreId(orderId);
+                    order.setShed(shed);
+                    order.setStatus(status);
                     orders.add(order);
 
                 }
@@ -121,8 +124,34 @@ public class OrderMapper {
 
     }
 
-    //getAllOrders
+    public Order getOrderByOrderId(int id) throws SQLException {
+        Order order = null;
+        try (Connection connection = database.connect())
+        {
+            String sql = "SELECT * FROM orders where id=?";
 
-
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+            {
+                ps.setInt(1,id);
+                ResultSet resultSet = ps.executeQuery();
+                while (resultSet.next()){
+                    int orderId = resultSet.getInt("id");
+                    int kundeId = resultSet.getInt("customer_id");
+                    double pris = resultSet.getDouble("total_amount");
+                    int length = resultSet.getInt("carport_width");
+                    int width = resultSet.getInt("carport_length");
+                    //boolean shed = resultSet.getBoolean("shed");
+                    boolean shed = false;
+                    String status = resultSet.getString("status");
+                    order = new Order(orderId, kundeId,length, width, shed, pris, status);
+                }
+                return order;
+            }
+            catch (SQLException ex)
+            {
+                throw new SQLException();
+            }
+        }
+    }
 
 }

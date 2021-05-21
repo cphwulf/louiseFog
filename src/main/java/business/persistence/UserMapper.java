@@ -1,18 +1,25 @@
 package business.persistence;
 
+import business.entities.Order;
 import business.exceptions.UserException;
 import business.entities.User;
 
 import java.io.StringReader;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.LinkedBlockingDeque;
 
 public class UserMapper
 {
     private Database database;
+    private List<User> allUsers;
 
     public UserMapper(Database database)
     {
         this.database = database;
+        allUsers = new ArrayList<>();
+
     }
 
     public void createUser(User user) throws UserException
@@ -78,4 +85,59 @@ public class UserMapper
         }
     }
 
+    public List<User> getAllUsers() {
+        if (allUsers.size()==0) {
+            try {
+                this.getAllUsersFromDB();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return allUsers;
+    }
+
+    private void getAllUsersFromDB() throws SQLException {
+        try (Connection connection = database.connect())
+        {
+            String sql = "SELECT * FROM users";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+
+                ResultSet resultSet = ps.executeQuery();
+                while (resultSet.next()){
+                    int userid = resultSet.getInt("id");
+                    String email = resultSet.getString("email");
+                    String password = resultSet.getString("password");
+                    String role = resultSet.getString("role");
+                    User user = new User(email,password,role);
+                    user.setId(userid);
+                    allUsers.add(user);
+                }
+            }
+            catch (SQLException ex)
+            {
+                throw new SQLException();
+            }
+        }
+    }
+
+    public User getNameFromId(int id) {
+        User retValUser = null;
+        if (allUsers.size()==0) {
+            try {
+                this.getAllUsersFromDB();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        for (User user: allUsers ) {
+            if (user.getId()==id) {
+                retValUser = user;
+                return retValUser;
+            }
+
+        }
+        return  retValUser;
+    }
 }

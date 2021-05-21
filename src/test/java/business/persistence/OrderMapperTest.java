@@ -13,16 +13,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrderMapperTest {
     OrderMapper orderMapper;
     Database database;
-    private String USER = "dev";
-    private String PASSWORD = "ax2";
-    private String URL = "jdbc:mysql://localhost:3306/fog?serverTimezone=CET";
+    private String USER = "root";
+    private String PASSWORD = "root123";
+    private String URL = "jdbc:mysql://localhost:3306/joncarport?serverTimezone=CET";
 
 
     @Test
     void createOrder() throws UserException {
         Order order = new Order(1, 600, 300,true);
         orderMapper.createOrder(order);
-
         assertEquals(1, order.getLength());
     }
 
@@ -37,6 +36,10 @@ class OrderMapperTest {
     void testGetOrders() throws UserException {
         List<Order> orderList = orderMapper.getOrderByCustomerId(1);
         assertEquals(1, orderList.get(0).getLength());
-
+    }
+    @Test
+    void testAllGetOrders() throws UserException {
+        List<Order> orderList = orderMapper.getAllOrders();
+        assertEquals(1, orderList.get(0).getLength());
     }
 }

@@ -3,17 +3,20 @@ package business.entities;
 import java.util.List;
 
 public class Order {
+
     int ordreId;
     double prisTotal;
-    int kunde_Id;
+    int kundeId;
+    String kundeMail;
     int length;
     int width;
     boolean shed;
     String status;
 
 
-    public Order(int kunde_kunde_Id,int length, int width, boolean shed) {
-        kunde_Id = kunde_kunde_Id;
+    public Order(int kunde_Id,int length, int width, boolean shed) {
+
+        this.kundeId = kunde_Id;
         this.length = length;
         this.width = width;
         this.shed = shed;
@@ -21,13 +24,29 @@ public class Order {
     }
 
     public Order(int orderId, int kundeid, int length, int width, boolean shed, double pris, String status) {
-        this.kunde_Id = kundeid;
         this.ordreId = orderId;
+        this.kundeId = kundeid;
         this.length = length;
         this.width = width;
         this.shed = shed;
         this.prisTotal = pris;
         this.status = status;
+    }
+
+    public int getOrdreId() {
+        return ordreId;
+    }
+
+    public int getKundeId() {
+        return kundeId;
+    }
+
+    public String getKundeMail() {
+        return kundeMail;
+    }
+
+    public void setKundeMail(String kundeMail) {
+        this.kundeMail = kundeMail;
     }
 
     public void setOrdreId(int ordreId) {
@@ -39,7 +58,7 @@ public class Order {
     }
 
     public int getKunde_Id() {
-        return kunde_Id;
+        return kundeId;
     }
 
     public String getStatus() {
@@ -51,7 +70,7 @@ public class Order {
     }
 
     public void setKunde_Id(int kunde_Id) {
-        this.kunde_Id = kunde_Id;
+        this.kundeId = kunde_Id;
     }
 
     public void setStatus(String status) {
@@ -80,6 +99,18 @@ public class Order {
 
     public void setShed(boolean shed) {
         this.shed = shed;
+    }
+    @Override
+    public String toString() {
+        return "Order{" +
+                "ordreId=" + ordreId +
+                ", prisTotal=" + prisTotal +
+                ", kunde_Id=" + kundeId +
+                ", length=" + length +
+                ", width=" + width +
+                ", shed=" + shed +
+                ", status='" + status + '\'' +
+                '}';
     }
 }
 
