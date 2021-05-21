@@ -1,18 +1,34 @@
 package business.services;
 
 import business.persistence.Database;
-import javafx.scene.paint.Material;
+import business.persistence.MaterialMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MaterialFacade {
-    Database database;
+    MaterialMapper materialMapper;
 
-    public MaterialFacade(Database database) {
-        this.database = database;
+    public MaterialFacade(Database db) {
+        this.materialMapper = new MaterialMapper(db);
 
     }
+    public List<Integer> getAllLength(){
+        List<Integer> lengths = new ArrayList<>();
+        for(int i=330;i<=780;i+=30) {
+            lengths.add(i);
+        }
+        return lengths;
+    }
+
+    public List<Integer> getAllWidths(){
+        List<Integer> widths = new ArrayList<>();
+        for(int i=260;i<=600;i+=30) {
+            widths.add(i);
+        }
+        return widths;
+    }
+
 
     public List getAllMaterial(){
         List<String> materialList = new ArrayList<String>();

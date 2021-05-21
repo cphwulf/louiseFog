@@ -1,48 +1,67 @@
 package business.entities;
 
+import java.util.List;
+
 public class Order {
     double prisTotal;
-    int Kunde_kunde_Id;
-    int Carport_carport_Id;
+    int kunde_Id;
+    int carport_length;
+    int carport_width;
+    List<OrderItems> orderItemsList;
     String status;
 
 
-    public Order(double prisTotal, int kunde_kunde_Id, int carport_carport_Id, String status) {
-        this.prisTotal = prisTotal;
-        Kunde_kunde_Id = kunde_kunde_Id;
-        Carport_carport_Id = carport_carport_Id;
-        this.status = status;
+    public Order(int kunde_Id) {
+        this.kunde_Id = kunde_Id;
+        this.status = "Oprettet";
     }
 
     public double getPrisTotal() {
         return prisTotal;
     }
 
-    public void setPrisTotal(double prisTotal) {
-        this.prisTotal = prisTotal;
+    public int getKunde_Id() {
+        return kunde_Id;
     }
 
-    public int getKunde_kunde_Id() {
-        return Kunde_kunde_Id;
-    }
-
-    public void setKunde_kunde_Id(int kunde_kunde_Id) {
-        Kunde_kunde_Id = kunde_kunde_Id;
-    }
-
-    public int getCarport_carport_Id() {
-        return Carport_carport_Id;
-    }
-
-    public void setCarport_carport_Id(int carport_carport_Id) {
-        Carport_carport_Id = carport_carport_Id;
+    public List<OrderItems> getOrderItemsList() {
+        return orderItemsList;
     }
 
     public String getStatus() {
         return status;
     }
+    public void addOrderItem(OrderItems orderItems) {
+        orderItemsList.add(orderItems);
+    }
+
+    public void setPrisTotal(double prisTotal) {
+        this.prisTotal = prisTotal;
+    }
+
+    public void setKunde_Id(int kunde_Id) {
+        this.kunde_Id = kunde_Id;
+    }
+
+    public void setCarport_length(int carport_length) {
+        this.carport_length = carport_length;
+    }
+
+    public void setCarport_width(int carport_width) {
+        this.carport_width = carport_width;
+    }
 
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public int getCarport_length() {
+        return carport_length;
+    }
+
+    public int getCarport_width() {
+        return carport_width;
+    }
+
 }
+
