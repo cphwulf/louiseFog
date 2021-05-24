@@ -5,6 +5,7 @@ import business.entities.OrderItems;
 import business.entities.SimpleOrder;
 import business.exceptions.UserException;
 import business.services.MaterialFacade;
+import business.services.OrderFacade;
 import business.services.UserFacade;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,11 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerMaterialList extends CommandProtectedPage {
-MaterialFacade materialFacade;
+    MaterialFacade materialFacade;
+    OrderFacade orderFacade;
+    CarportCalculator carportCalculator;
 
     public CustomerMaterialList(String customermateriallist, String role) {
         super(customermateriallist, role);
         materialFacade = new MaterialFacade(database);
+        orderFacade = new OrderFacade(database);
+        carportCalculator = new CarportCalculator(materialFacade);
     }
     //Har materialeliste og ordre
 //TODO: Materialfacade skal virke
@@ -43,7 +48,9 @@ MaterialFacade materialFacade;
         }
 
         List<String> materialList = materialFacade.getAllMaterial();
-        SimpleOrder simpleOrder = new SimpleOrder(1,1,600, 780);
+        //SimpleOrder simpleOrder = new SimpleOrder(1,1,600, 780);
+        Order order = orderFacade.getOrderById(ordreId);
+
         List<OrderItems> orderedItems = new ArrayList<>();
         //materialliste skal lave en ny
         request.setAttribute("matList", materialList);
